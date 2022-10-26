@@ -3,20 +3,17 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-#scrape = input("what page would you like to scrape? ")
+scrape = input("what page would you like to scrape? ")
 cdp = "/home/kali/scripts/selenium/geckodriver"
 driver = webdriver.Firefox(executable_path=cdp)
-#driver.get(f"{scrape}")
-#url = scrape
-
-driver.get("https://github.com/aboody555")
-url = "https://github.com/aboody555"
+driver.get(f"{scrape}")
+url = scrape
 
 
-res = driver.find_elements(By.CLASS_NAME, "repo")
+res = driver.find_elements(By.CLASS_NAME, "repo")	#all files under class "repo"
 
-
-def going_for_raw(second_page):
+ #this function is to click the raw button then open and copy the page source
+def going_for_raw(second_page):      		      
 	driver.get(second_page)
 	raw = driver.find_element(By.CLASS_NAME, "js-permalink-replaceable-link")
 	raw.click()
@@ -25,6 +22,8 @@ def going_for_raw(second_page):
 	if "password" in html:
 		print(f"found password in : {second_page}")
 
+		
+#this function is to list all the files in the repositories then open them with going_for_raw function		
 def loop(next_page):
 	global a
 	driver.get(next_page)
